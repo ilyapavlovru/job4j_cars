@@ -1,12 +1,13 @@
 package ru.job4j.cars.store;
 
+import ru.job4j.cars.model.Adv;
 import ru.job4j.cars.model.Role;
 import ru.job4j.cars.model.User;
 
 import java.util.Collection;
 
 public interface Store {
-//    Collection<Item> findAllItems();
+    Collection<Adv> findAllAdvs();
 //    Collection<Category> findAllCategories();
 //    Item addItem(Item item, String[] ids);
 //    Item findItemById(int id);
