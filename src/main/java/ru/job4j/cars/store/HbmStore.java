@@ -36,7 +36,7 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     @Override
-    public Collection<Adv> findAllAdvs() {
+    public Collection<Adv> findAllAds() {
         return tx(
                 session -> session.createQuery(
                         "from ru.job4j.cars.model.Adv").list()

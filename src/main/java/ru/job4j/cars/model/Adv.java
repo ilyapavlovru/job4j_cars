@@ -28,6 +28,16 @@ public class Adv {
 
     private int price;
 
+    public Adv() {
+    }
+
+    public static Adv of(String name, CarBrand carBrand) {
+        Adv adv = new Adv();
+        adv.name = name;
+        adv.carBrand = carBrand;
+        return adv;
+    }
+
     public Adv(String name, String description, String status, Date created,
                CarBrand carBrand, String carBodyType, int price) {
         this.name = name;

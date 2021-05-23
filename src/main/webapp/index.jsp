@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link type="text/css" rel="stylesheet" href="styles.css"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -44,7 +43,7 @@
 
     $(document).ready(function () {
         loadAdsFromDB();
-        loadCarBrandsFromDB();
+        // loadCarBrandsFromDB();
     });
 
     function loadAdsFromDB() {
@@ -54,12 +53,24 @@
             dataType: 'json'
         }).done(function (data) {
             allLoadedAds = data;
+            console.log(data);
             fillAdsTable();
         })
     }
 
     function fillAdsTable() {
-
+        for (let x = 0; x < allLoadedAds.length; x++) {
+            $('#table tr:last').after(
+                '<tr>' +
+                '<td></td>' +
+                '<td>' + allLoadedAds[x].name + '</td>' +
+                '<td>' + allLoadedAds[x].description + '</td>' +
+                '<td>' + allLoadedAds[x].carBrand.name + '</td>' +
+                '<td></td>' +
+                '<td>' + allLoadedAds[x].price + '</td>' +
+                '<td></td>' +
+                '</tr>');
+        }
     }
 
     function fillCarBrandsSelector() {

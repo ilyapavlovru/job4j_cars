@@ -7,7 +7,7 @@ import ru.job4j.cars.model.User;
 import java.util.Collection;
 
 public interface Store {
-    Collection<Adv> findAllAdvs();
+    Collection<Adv> findAllAds();
 //    Collection<Category> findAllCategories();
 //    Item addItem(Item item, String[] ids);
 //    Item findItemById(int id);

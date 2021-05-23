@@ -12,8 +12,10 @@ public class CarBrand {
 
     private String name;
 
-    public CarBrand(String name) {
-        this.name = name;
+    public static CarBrand of(String name) {
+        CarBrand carBrand = new CarBrand();
+        carBrand.name = name;
+        return carBrand;
     }
 
     public int getId() {
