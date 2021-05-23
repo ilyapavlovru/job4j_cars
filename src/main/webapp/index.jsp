@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>--%>
 
 <!doctype html>
 <html lang="en">
@@ -62,13 +63,13 @@
         for (let x = 0; x < allLoadedAds.length; x++) {
             $('#table tr:last').after(
                 '<tr>' +
-                '<td></td>' +
+
+                '<td><img src="/cars/download?id=' + allLoadedAds[x].id + '" width="200px" height="200px"/></td>' +
                 '<td>' + allLoadedAds[x].name + '</td>' +
                 '<td>' + allLoadedAds[x].description + '</td>' +
                 '<td>' + allLoadedAds[x].carBrand.name + '</td>' +
                 '<td></td>' +
                 '<td>' + allLoadedAds[x].price + '</td>' +
-                '<td></td>' +
                 '</tr>');
         }
     }
@@ -102,7 +103,6 @@
                     <th scope="col">Марка</th>
                     <th scope="col">Тип кузова</th>
                     <th scope="col">Цена</th>
-                    <th scope="col">Создано</th>
                 </tr>
                 </thead>
                 <tbody id="allCarsTable">

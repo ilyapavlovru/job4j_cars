@@ -64,12 +64,12 @@ public class HbmStore implements Store, AutoCloseable {
 //        );
 //    }
 //
-//    @Override
-//    public Item findItemById(int id) {
-//        return tx(
-//                session -> session.get(Item.class, id)
-//        );
-//    }
+    @Override
+    public Adv findAdvById(int id) {
+        return tx(
+                session -> session.get(Adv.class, id)
+        );
+    }
 //
 //    @Override
 //    public boolean replaceItem(Item item) {

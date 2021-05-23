@@ -17,6 +17,10 @@
     <servlet-name>AdvServlet</servlet-name>
     <servlet-class>ru.job4j.cars.servlet.AdvServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.servlet.DownloadServlet</servlet-class>
+  </servlet>
   <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>ru.job4j.cars.filter.AuthFilter</filter-class>
@@ -33,6 +37,10 @@
   <servlet-mapping>
     <servlet-name>AdvServlet</servlet-name>
     <url-pattern>/adv.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download</url-pattern>
   </servlet-mapping>
   <filter-mapping>
     <filter-name>AuthFilter</filter-name>

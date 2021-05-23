@@ -8,6 +8,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.Adv;
 import ru.job4j.cars.model.CarBrand;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 public class HbmRun {
@@ -18,9 +20,22 @@ public class HbmRun {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
             CarBrand carBrand = create(CarBrand.of("Ferrari"), sf);
-            create(Adv.of("Adv1", carBrand), sf);
 
-            for (Adv adv : findAll(Adv.class, sf)) {
+            Adv adv = Adv.of("Adv2", carBrand);
+            File file = new File("D:\\temp\\cars_photo\\2.png");
+            byte[] bFile = new byte[(int) file.length()];
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                fileInputStream.read(bFile);
+                fileInputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            adv.setImage(bFile);
+
+            create(adv, sf);
+
+            for (Adv adv1 : findAll(Adv.class, sf)) {
                 System.out.println(adv.getName() + " " + adv.getCarBrand().getName());
             }
 

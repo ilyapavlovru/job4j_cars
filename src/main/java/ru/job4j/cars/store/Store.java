@@ -10,7 +10,7 @@ public interface Store {
     Collection<Adv> findAllAds();
 //    Collection<Category> findAllCategories();
 //    Item addItem(Item item, String[] ids);
-//    Item findItemById(int id);
+    Adv findAdvById(int id);
 //    boolean replaceItem(Item item);
     User findUserByEmail(String email);
     User addUser(User user);

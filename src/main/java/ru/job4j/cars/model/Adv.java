@@ -28,12 +28,15 @@ public class Adv {
 
     private int price;
 
+    private byte[] image;
+
     public Adv() {
     }
 
     public static Adv of(String name, CarBrand carBrand) {
         Adv adv = new Adv();
         adv.name = name;
+        adv.created = new Date(System.currentTimeMillis());
         adv.carBrand = carBrand;
         return adv;
     }
@@ -42,6 +45,7 @@ public class Adv {
                CarBrand carBrand, String carBodyType, int price) {
         this.name = name;
         this.description = description;
+        this.created = new Date(System.currentTimeMillis());
         this.status = status;
         this.created = created;
         this.carBrand = carBrand;
@@ -103,6 +107,14 @@ public class Adv {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override
