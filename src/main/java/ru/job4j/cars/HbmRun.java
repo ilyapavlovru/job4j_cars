@@ -19,10 +19,10 @@ public class HbmRun {
         try {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
-            CarBrand carBrand = create(CarBrand.of("Ferrari"), sf);
+            CarBrand carBrand = create(CarBrand.of("BMV"), sf);
 
-            Adv adv = Adv.of("Adv2", carBrand);
-            File file = new File("D:\\temp\\cars_photo\\2.png");
+            Adv adv = Adv.of("Adv1", carBrand);
+            File file = new File("D:\\temp\\cars_photo\\1.png");
             byte[] bFile = new byte[(int) file.length()];
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
