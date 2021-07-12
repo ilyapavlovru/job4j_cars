@@ -23,7 +23,7 @@ public class AuthServlet extends HttpServlet {
             HttpSession sc = req.getSession();
             User sessionUser = new User(user.getName(), user.getEmail());
             sc.setAttribute("user", sessionUser);
-            resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath() + "/adv.do");
         } else {
             resp.setContentType("text/html;charset=UTF-8");
             PrintWriter out = resp.getWriter();

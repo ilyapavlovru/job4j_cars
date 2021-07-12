@@ -31,9 +31,6 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">Все объявления</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/adv/edit.jsp">Добавить объявление</a>
             </li>
         </ul>
@@ -41,17 +38,11 @@
     <hr align="left" size="5">
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="card" style="width: 100%">
-            <div class="card-header">
-                Сегодняшние объявления
-            </div>
-            <div class="card-body">
-            </div>
-        </div>
-    </div>
-</div>
+
+
+<script>
+
+</script>
 
 </body>
 </html>
