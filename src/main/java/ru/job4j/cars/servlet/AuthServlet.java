@@ -1,8 +1,7 @@
 package ru.job4j.cars.servlet;
 
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.store.HbmStore;
-import ru.job4j.cars.store.Store;
+import ru.job4j.cars.store.AdRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +16,7 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Store store = new HbmStore();
-        User user = store.findUserByEmail(email);
+        User user = AdRepository.instOf().findUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             HttpSession sc = req.getSession();
             User sessionUser = new User(user.getName(), user.getEmail());

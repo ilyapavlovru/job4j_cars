@@ -6,15 +6,18 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import ru.job4j.cars.model.Adv;
+import ru.job4j.cars.model.Role;
+import ru.job4j.cars.model.User;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.function.Function;
 
-public class AdRepository implements AutoCloseable {
-    public static final AdRepository INST = new AdRepository();
+public class AdRepository implements Store, AutoCloseable {
+    private static final AdRepository INST = new AdRepository();
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
@@ -42,6 +45,15 @@ public class AdRepository implements AutoCloseable {
         }
     }
 
+    @Override
+    public Collection<Adv> findAllAds() {
+        return tx(
+                session -> session.createQuery(
+                        "from ru.job4j.cars.model.Adv").list()
+        );
+    }
+
+    @Override
     public Collection<Adv> findTodayAds() {
         return tx(
                 session -> {
@@ -55,6 +67,7 @@ public class AdRepository implements AutoCloseable {
         );
     }
 
+    @Override
     public Collection<Adv> findAdsWithPhoto() {
         return tx(
                 session -> {
@@ -65,6 +78,7 @@ public class AdRepository implements AutoCloseable {
         );
     }
 
+    @Override
     public Collection<Adv> findAdsByCarBrandId(int carBrandId) {
         return tx(
                 session -> {
@@ -72,6 +86,55 @@ public class AdRepository implements AutoCloseable {
                             "FROM Adv AS a WHERE a.carBrand.id = :carBrandId")
                             .setParameter("carBrandId", carBrandId)
                             .list();
+                }
+        );
+    }
+
+    @Override
+    public Adv findAdvById(int id) {
+        return tx(
+                session -> session.get(Adv.class, id)
+        );
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return tx(
+                session -> {
+                    Query query = session.createQuery("from ru.job4j.cars.model.User where email = :email");
+                    query.setParameter("email", email);
+                    return (User) query.uniqueResult();
+                }
+        );
+    }
+
+    @Override
+    public User addUser(User user) {
+        return tx(
+                session -> {
+                    session.save(user);
+                    return user;
+                }
+        );
+    }
+
+    @Override
+    public Role findRoleByName(String name) {
+        return tx(
+                session -> {
+                    Query query = session.createQuery("from ru.job4j.cars.model.Role where name = :name");
+                    query.setParameter("name", name);
+                    return (Role) query.uniqueResult();
+                }
+        );
+    }
+
+    @Override
+    public Role addRole(Role role) {
+        return tx(
+                session -> {
+                    session.save(role);
+                    return role;
                 }
         );
     }

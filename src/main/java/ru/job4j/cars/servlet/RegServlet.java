@@ -2,7 +2,7 @@ package ru.job4j.cars.servlet;
 
 import ru.job4j.cars.model.Role;
 import ru.job4j.cars.model.User;
-import ru.job4j.cars.store.HbmStore;
+import ru.job4j.cars.store.AdRepository;
 import ru.job4j.cars.store.Store;
 
 import javax.servlet.ServletException;
@@ -19,7 +19,7 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Store store = new HbmStore();
+        Store store = AdRepository.instOf();
         User existingUser = store.findUserByEmail(email);
         if (existingUser == null) {
             req.setCharacterEncoding("UTF-8");

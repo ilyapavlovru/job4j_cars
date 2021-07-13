@@ -1,7 +1,6 @@
 package ru.job4j.cars.servlet;
 
-import ru.job4j.cars.store.HbmStore;
-import ru.job4j.cars.store.Store;
+import ru.job4j.cars.store.AdRepository;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,8 +15,7 @@ public class AdvServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Store store = new HbmStore();
-        req.setAttribute("ads", new ArrayList<>(store.findAllAds()));
+        req.setAttribute("ads", new ArrayList<>(AdRepository.instOf().findAllAds()));
         HttpSession session = req.getSession();
         req.setAttribute("user", session.getAttribute("user"));
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("advertisements.jsp");
