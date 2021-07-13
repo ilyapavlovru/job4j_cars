@@ -1,3 +1,6 @@
+<%@ page import="ru.job4j.cars.model.User" %>
+<%@ page import="ru.job4j.cars.model.Adv" %>
+<%@ page import="ru.job4j.cars.store.AdRepository" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>--%>
 
@@ -28,7 +31,7 @@
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/adv.do">Объявления</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/adv/edit.jsp">Добавить объявление</a>
@@ -38,11 +41,54 @@
     <hr align="left" size="5">
 </div>
 
+<%
+    String id = request.getParameter("id");
+    Adv adv = new Adv(0, "");
+    if (id != null) {
+        adv = AdRepository.instOf().findAdvById(Integer.parseInt(id));
+    }
+%>
 
 
 <script>
 
 </script>
+
+<div class="container pt-3">
+    <div class="row">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                <% if (id == null) { %>
+                Новое объявление
+                <% } else { %>
+                Редактирование объявления
+                <% } %>
+            </div>
+
+            <div class="card-body">
+
+                <form action="<%=request.getContextPath()%>/adv.do?id=<%=adv.getId()%>" method="post">
+
+                    <div class="form-group">
+                        <label>Заголовок объявления</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%=adv.getName()%>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="citySelector">Марка автомобиля:</label>
+                        <select class="form-control" id="citySelector" name = "cityId">
+                            <option value="0">Выберите марку автомобиля</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="action" value="update"/>
+                    <button type="submit" value="UPDATE" class="btn btn-primary" onclick="return validate()">Сохранить</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

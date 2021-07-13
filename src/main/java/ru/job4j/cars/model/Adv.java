@@ -33,6 +33,11 @@ public class Adv {
     public Adv() {
     }
 
+    public Adv(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public static Adv of(String name, CarBrand carBrand) {
         Adv adv = new Adv();
         adv.name = name;
