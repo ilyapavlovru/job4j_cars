@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.job4j.cars.model.Adv;
+import ru.job4j.cars.model.CarBrand;
 import ru.job4j.cars.model.Role;
 import ru.job4j.cars.model.User;
 
@@ -94,6 +95,14 @@ public class AdRepository implements Store, AutoCloseable {
     public Adv findAdvById(int id) {
         return tx(
                 session -> session.get(Adv.class, id)
+        );
+    }
+
+    @Override
+    public Collection<CarBrand> findAllCarBrands() {
+        return tx(
+                session -> session.createQuery(
+                        "from ru.job4j.cars.model.CarBrand").list()
         );
     }
 

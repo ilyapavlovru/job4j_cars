@@ -10,6 +10,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="text/css" rel="stylesheet" href="../css/styles.css"/>
+
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -47,10 +49,69 @@
     if (id != null) {
         adv = AdRepository.instOf().findAdvById(Integer.parseInt(id));
     }
+
+//    если id != 0
+//    то есть редактируем объявление
+//    то нужно получить id текущей марки авто
 %>
 
 
 <script>
+    $(document).ready(function () {
+        const el = document.getElementById('carBrandSelector');
+        <%--let curCarBrandId = <%=adv.getCarBrand().getId()%>;--%>
+        let curCarBrandId = 0;
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/cars/carbrands',
+            dataType: 'json'
+        }).done(function (response) {
+            response.forEach(function (arrayItem) {
+                el.append(new Option(arrayItem.name, arrayItem.id));
+                console.log(arrayItem.id + " " + arrayItem.name);
+            });
+            el.value = curCarBrandId;
+        }).fail(function (err) {
+            alert(err);
+        });
+    });
+
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function(){
+            readURL(this);
+        });
+    });
+
 
 </script>
 
@@ -70,15 +131,52 @@
                 <form action="<%=request.getContextPath()%>/adv.do?id=<%=adv.getId()%>" method="post">
 
                     <div class="form-group">
-                        <label>Заголовок объявления</label>
+                        <label>Заголовок объявления:</label>
                         <input type="text" class="form-control" id="name" name="name" value="<%=adv.getName()%>">
                     </div>
 
                     <div class="form-group">
-                        <label for="citySelector">Марка автомобиля:</label>
-                        <select class="form-control" id="citySelector" name = "cityId">
+                        <label for="carBrandSelector">Марка:</label>
+                        <select class="form-control" id="carBrandSelector" name = "carBrandId">
                             <option value="0">Выберите марку автомобиля</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carBodyTypeSelector">Тип кузова:</label>
+                        <select class="form-control" id="carBodyTypeSelector" name = "carBodyTypeId">
+                            <option value="0">Выберите тип кузова автомобиля</option>
+                            <option value="1">Седан</option>
+                            <option value="2">Хэтчбэк</option>
+                            <option value="3">Универсал</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Цена:</label>
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descriptionTextArea">Описание:</label>
+                        <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
+                    </div>
+
+                    <div class="container">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Upload Image</label>
+                                <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" id="imgInp">
+                </span>
+            </span>
+                                    <input type="text" name="img" class="form-control" readonly>
+                                </div>
+                                <img id='img-upload'/>
+                            </div>
+                        </div>
                     </div>
 
                     <input type="hidden" name="action" value="update"/>
