@@ -2,7 +2,7 @@
 <%@ page import="ru.job4j.cars.model.Adv" %>
 <%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -44,61 +44,6 @@
     <hr align="left" size="5">
 </div>
 
-
-
-<script>
-
-    // let allLoadedAds;
-    // let allLoadedCarBrands;
-    //
-    // $(document).ready(function () {
-    //     loadAdsFromDB();
-    //     // loadCarBrandsFromDB();
-    // });
-
-    // function loadAdsFromDB() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: 'http://localhost:8080/cars/adv.do',
-    //         dataType: 'json'
-    //     }).done(function (data) {
-    //         allLoadedAds = data;
-    //         console.log(data);
-    //         fillAdsTable();
-    //     })
-    // }
-
-    // function fillAdsTable() {
-    //     for (let x = 0; x < allLoadedAds.length; x++) {
-    //         $('#table tr:last').after(
-    //             '<tr>' +
-    //
-    //             '<td><img src="/cars/download?id=' + allLoadedAds[x].id + '" width="200px" height="200px"/></td>' +
-    //             '<td>' + allLoadedAds[x].name + '</td>' +
-    //             '<td>' + allLoadedAds[x].description + '</td>' +
-    //             '<td>' + allLoadedAds[x].carBrand.name + '</td>' +
-    //             '<td></td>' +
-    //             '<td>' + allLoadedAds[x].price + '</td>' +
-    //             '</tr>');
-    //     }
-    // }
-
-    // function fillCarBrandsSelector() {
-    //
-    // }
-
-    // function loadCarBrandsFromDB() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: 'http://localhost:8080/cars/carbrand.do',
-    //         dataType: 'json'
-    //     }).done(function (data) {
-    //         allLoadedCarBrands = data;
-    //         fillCarBrandsSelector();
-    //     })
-    // }
-</script>
-
 <div class="container">
     <h2>Список объявлений</h2>
     <div class="row">
@@ -107,6 +52,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Фото</th>
+                    <th scope="col"></th>
                     <th scope="col">Название</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Марка</th>
@@ -119,6 +65,16 @@
                 <tr>
                     <td>
                         <img src="/cars/download?id=<%=adv.getId()%>" width="200px" height="200px"/>
+                    </td>
+                    <td>
+
+                        <form action='<c:url value="/photoUpload"/>' method="get">
+<%--                        <form action="<%=request.getContextPath()%>/photoUpload/" method="get">--%>
+
+                            <input type="hidden" name="action" value="add"/>
+                            <input type="hidden" name="id" value="<%=adv.getId()%>"/>
+                            <input type="submit" value="Добавить"/>
+                        </form>
                     </td>
                     <td>
                         <%=adv.getName()%>

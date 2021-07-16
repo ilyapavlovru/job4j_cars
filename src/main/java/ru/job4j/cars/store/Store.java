@@ -24,4 +24,10 @@ public interface Store {
     Role findRoleByName(String name);
 
     Role addRole(Role role);
+
+    CarBrand findCarBrandById(Integer carBrandId);
+
+    Adv saveAdv(Adv adv);
+
+    Adv updateAdv(Adv adv);
 }

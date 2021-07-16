@@ -46,13 +46,12 @@ public class Adv {
         return adv;
     }
 
-    public Adv(String name, String description, String status, Date created,
+    public Adv(String name, String description, String status,
                CarBrand carBrand, String carBodyType, int price) {
         this.name = name;
         this.description = description;
         this.created = new Date(System.currentTimeMillis());
         this.status = status;
-        this.created = created;
         this.carBrand = carBrand;
         this.carBodyType = carBodyType;
         this.price = price;

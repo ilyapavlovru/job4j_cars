@@ -3,6 +3,7 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
+
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
@@ -25,6 +26,11 @@
     <servlet-name>DownloadServlet</servlet-name>
     <servlet-class>ru.job4j.cars.servlet.DownloadServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>PhotoUploadServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.servlet.PhotoUploadServlet</servlet-class>
+  </servlet>
+
   <filter>
     <filter-name>AuthFilter</filter-name>
     <filter-class>ru.job4j.cars.filter.AuthFilter</filter-class>
@@ -50,6 +56,11 @@
     <servlet-name>CarBrandServlet</servlet-name>
     <url-pattern>/carbrands</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PhotoUploadServlet</servlet-name>
+    <url-pattern>/photoUpload</url-pattern>
+  </servlet-mapping>
+
   <filter-mapping>
     <filter-name>AuthFilter</filter-name>
     <url-pattern>*.do</url-pattern>

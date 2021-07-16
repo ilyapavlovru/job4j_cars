@@ -149,6 +149,33 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public CarBrand findCarBrandById(Integer carBrandId) {
+        return tx(
+                session -> session.get(CarBrand.class, carBrandId)
+        );
+    }
+
+    @Override
+    public Adv saveAdv(Adv adv) {
+        return tx(
+                session -> {
+                    session.save(adv);
+                    return adv;
+                }
+        );
+    }
+
+    @Override
+    public Adv updateAdv(Adv adv) {
+        return tx(
+                session -> {
+                    session.update(adv);
+                    return adv;
+                }
+        );
+    }
+
+    @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
     }

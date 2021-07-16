@@ -2,7 +2,7 @@
 <%@ page import="ru.job4j.cars.model.Adv" %>
 <%@ page import="ru.job4j.cars.store.AdRepository" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -76,43 +76,6 @@
         });
     });
 
-    $(document).ready( function() {
-        $(document).on('change', '.btn-file :file', function() {
-            var input = $(this),
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-            input.trigger('fileselect', [label]);
-        });
-
-        $('.btn-file :file').on('fileselect', function(event, label) {
-
-            var input = $(this).parents('.input-group').find(':text'),
-                log = label;
-
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-
-        });
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#img-upload').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#imgInp").change(function(){
-            readURL(this);
-        });
-    });
-
-
 </script>
 
 <div class="container pt-3">
@@ -146,9 +109,9 @@
                         <label for="carBodyTypeSelector">Тип кузова:</label>
                         <select class="form-control" id="carBodyTypeSelector" name = "carBodyTypeId">
                             <option value="0">Выберите тип кузова автомобиля</option>
-                            <option value="1">Седан</option>
-                            <option value="2">Хэтчбэк</option>
-                            <option value="3">Универсал</option>
+                            <option value="Седан">Седан</option>
+                            <option value="Хэтчбэк">Хэтчбэк</option>
+                            <option value="Универсал">Универсал</option>
                         </select>
                     </div>
 
@@ -159,24 +122,7 @@
 
                     <div class="form-group">
                         <label for="descriptionTextArea">Описание:</label>
-                        <textarea class="form-control" id="descriptionTextArea" rows="3"></textarea>
-                    </div>
-
-                    <div class="container">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Upload Image</label>
-                                <div class="input-group">
-            <span class="input-group-btn">
-                <span class="btn btn-default btn-file">
-                    Browse… <input type="file" id="imgInp">
-                </span>
-            </span>
-                                    <input type="text" name="img" class="form-control" readonly>
-                                </div>
-                                <img id='img-upload'/>
-                            </div>
-                        </div>
+                        <textarea class="form-control" id="descriptionTextArea" name = "description" rows="3"></textarea>
                     </div>
 
                     <input type="hidden" name="action" value="update"/>
