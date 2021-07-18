@@ -46,21 +46,18 @@
 <%
     String id = request.getParameter("id");
     Adv adv = new Adv(0, "");
+    int carBrandId = 0;
     if (id != null) {
         adv = AdRepository.instOf().findAdvById(Integer.parseInt(id));
+        carBrandId = adv.getCarBrand().getId();
     }
-
-//    если id != 0
-//    то есть редактируем объявление
-//    то нужно получить id текущей марки авто
 %>
 
 
 <script>
     $(document).ready(function () {
         const el = document.getElementById('carBrandSelector');
-        <%--let curCarBrandId = <%=adv.getCarBrand().getId()%>;--%>
-        let curCarBrandId = 0;
+        let curCarBrandId = <%=carBrandId%>;
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/cars/carbrands',
@@ -123,6 +120,17 @@
                     <div class="form-group">
                         <label for="descriptionTextArea">Описание:</label>
                         <textarea class="form-control" id="descriptionTextArea" name = "description" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <% if (id != null) { %>
+                        <label for="advStatusSelector">Статус объявления:</label>
+                        <select class="form-control" id="advStatusSelector" name = "advStatusSelectorId">
+                            <option value="0">Выберите статус объявления</option>
+                            <option value="Продается">Продается</option>
+                            <option value="Продано">Продано</option>
+                        </select>
+                        <% } %>
                     </div>
 
                     <input type="hidden" name="action" value="update"/>

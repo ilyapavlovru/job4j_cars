@@ -36,19 +36,35 @@ public class AdvServlet extends HttpServlet {
 
         } else if ("update".equals(req.getParameter("action"))) {
 
+            int id = Integer.parseInt(req.getParameter("id"));
+
             CarBrand carBrand = AdRepository.instOf().findCarBrandById(
                     Integer.valueOf(req.getParameter("carBrandId")));
 
-            AdRepository.instOf().saveAdv(
-                    new Adv(
-                            req.getParameter("name"),
-                            req.getParameter("description"),
-                            "new",
-                            carBrand,
-                            req.getParameter("carBodyTypeId"),
-                            Integer.parseInt(req.getParameter("price"))
-                    )
-            );
+            if (id == 0) {
+
+                AdRepository.instOf().saveAdv(
+                        new Adv(
+                                req.getParameter("name"),
+                                req.getParameter("description"),
+                                "new",
+                                carBrand,
+                                req.getParameter("carBodyTypeId"),
+                                Integer.parseInt(req.getParameter("price"))
+                        )
+                );
+            } else {
+                AdRepository.instOf().updateAdv(
+                        new Adv(
+                                req.getParameter("name"),
+                                req.getParameter("description"),
+                                req.getParameter("status"),
+                                carBrand,
+                                req.getParameter("carBodyTypeId"),
+                                Integer.parseInt(req.getParameter("price"))
+                        )
+                );
+            }
         }
         resp.sendRedirect(req.getContextPath() + "/adv.do");
     }

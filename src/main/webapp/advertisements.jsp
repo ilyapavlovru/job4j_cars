@@ -1,6 +1,4 @@
 <%@ page import="ru.job4j.cars.model.User" %>
-<%@ page import="ru.job4j.cars.model.Adv" %>
-<%@ page import="java.util.Collection" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 
@@ -21,7 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Сайт по продажам автомобилей</title>
 </head>
@@ -45,7 +43,7 @@
 </div>
 
 <div class="container">
-    <h2>Список объявлений</h2>
+    <h2>Мои объявления</h2>
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered" id='table'>
@@ -61,38 +59,39 @@
                 </tr>
                 </thead>
                 <tbody id="allCarsTable">
-                <% for (Adv adv : (Collection<Adv>) request.getAttribute("ads")) { %>
+
+                <c:forEach items="${ads}" var="adv">
                 <tr>
                     <td>
-                        <img src="/cars/download?id=<%=adv.getId()%>" width="200px" height="200px"/>
+                        <img src="<c:url value='/download?id=${adv.id}'/>" width="200px" height="200px"/>
                     </td>
                     <td>
-
                         <form action='<c:url value="/photoUpload"/>' method="get">
-<%--                        <form action="<%=request.getContextPath()%>/photoUpload/" method="get">--%>
-
                             <input type="hidden" name="action" value="add"/>
-                            <input type="hidden" name="id" value="<%=adv.getId()%>"/>
+                            <input type="hidden" name="id" value="${adv.id}"/>
                             <input type="submit" value="Добавить"/>
                         </form>
                     </td>
                     <td>
-                        <%=adv.getName()%>
+                        <a href='<c:url value="/adv/edit.jsp?id=${adv.id}"/>'>
+                            <i class="fa fa-edit mr-3"></i>
+                        </a>
+                        <c:out value="${adv.name}"/>
                     </td>
                     <td>
-                        <%=adv.getDescription()%>
+                        <c:out value="${adv.description}"/>
                     </td>
                     <td>
-                        <%=adv.getCarBrand().getName()%>
+                        <c:out value="${adv.carBrand.name}"/>
                     </td>
                     <td>
-                        <%=adv.getCarBodyType()%>
+                        <c:out value="${adv.carBodyType}"/>
                     </td>
                     <td>
-                        <%=adv.getPrice()%>
+                        <c:out value="${adv.price}"/>
                     </td>
                 </tr>
-                <% } %>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
