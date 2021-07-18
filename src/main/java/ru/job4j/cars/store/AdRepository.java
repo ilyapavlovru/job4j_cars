@@ -77,12 +77,35 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public Collection<Adv> findAllActiveAds() {
+        return tx(
+                session -> {
+                    return session.createQuery(
+                            "FROM Adv AS a WHERE a.status = 'Продается'")
+                            .list();
+                }
+        );
+    }
+
+    @Override
     public Collection<Adv> findAdsByCarBrandId(int carBrandId) {
         return tx(
                 session -> {
                     return session.createQuery(
                             "FROM Adv AS a WHERE a.carBrand.id = :carBrandId")
                             .setParameter("carBrandId", carBrandId)
+                            .list();
+                }
+        );
+    }
+
+    @Override
+    public Collection<Adv> findAllAdsByUserId(int userId) {
+        return tx(
+                session -> {
+                    return session.createQuery(
+                            "FROM Adv AS a WHERE a.user.id = :userId")
+                            .setParameter("userId", userId)
                             .list();
                 }
         );

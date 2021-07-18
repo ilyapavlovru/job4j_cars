@@ -28,6 +28,10 @@ public class Adv {
     @JoinColumn(name = "car_body_type_id")
     private CarBodyType carBodyType;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private int price;
 
     private byte[] image;
@@ -48,15 +52,17 @@ public class Adv {
         return adv;
     }
 
-    public Adv(int id, String name, String description, String status,
-               CarBrand carBrand, CarBodyType carBodyType, int price) {
+    public Adv(int id, String name, String description, String status, byte[] image,
+               CarBrand carBrand, CarBodyType carBodyType, User user, int price) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = new Date(System.currentTimeMillis());
         this.status = status;
+        this.image = image;
         this.carBrand = carBrand;
         this.carBodyType = carBodyType;
+        this.user = user;
         this.price = price;
     }
 
@@ -111,6 +117,15 @@ public class Adv {
     public void setCarBodyType(CarBodyType carBodyType) {
         this.carBodyType = carBodyType;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     public int getPrice() {
         return price;

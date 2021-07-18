@@ -46,7 +46,7 @@
 </div>
 
 <div class="container">
-    <h2>Мои объявления</h2>
+    <h2>Все объявления</h2>
     <div class="row">
         <div class="col-12">
             <table class="table table-bordered" id='table'>
@@ -58,7 +58,8 @@
                     <th scope="col">Марка</th>
                     <th scope="col">Тип кузова</th>
                     <th scope="col">Цена</th>
-                    <th scope="col">Статус</th>
+                    <th scope="col">Владелец</th>
+                    <th scope="col">Телефон</th>
                 </tr>
                 </thead>
                 <tbody id="allCarsTable">
@@ -67,16 +68,8 @@
                 <tr>
                     <td>
                         <img src="<c:url value='/download?id=${adv.id}'/>" width="200px" height="200px"/>
-                        <form action='<c:url value="/photoUpload"/>' method="get">
-                            <input type="hidden" name="action" value="add"/>
-                            <input type="hidden" name="id" value="<c:out value="${adv.id}"/>"/>
-                            <input type="submit" value="Изменить фото"/>
-                        </form>
                     </td>
                     <td>
-                        <a href='<c:url value="/adv/edit.jsp?id=${adv.id}"/>'>
-                            <i class="fa fa-edit mr-3"></i>
-                        </a>
                         <c:out value="${adv.name}"/>
                     </td>
                     <td>
@@ -92,7 +85,10 @@
                         <c:out value="${adv.price}"/>
                     </td>
                     <td>
-                        <c:out value="${adv.status}"/>
+                        <c:out value="${adv.user.name}"/>
+                    </td>
+                    <td>
+                        <c:out value="${adv.user.phone}"/>
                     </td>
                 </tr>
                 </c:forEach>

@@ -10,13 +10,15 @@ public interface Store {
     Collection<Adv> findTodayAds();
     Collection<Adv> findAdsWithPhoto();
     Collection<Adv> findAdsByCarBrandId(int carBrandId);
+    Collection<Adv> findAllActiveAds();
     Adv findAdvById(int id);
+    Collection<Adv> findAllAdsByUserId(int id);
 
     Collection<CarBrand> findAllCarBrands();
-
     Collection<CarBodyType> findAllCarBodyTypes();
 
     User findUserByEmail(String email);
+
     User addUser(User user);
 
     Role findRoleByName(String name);

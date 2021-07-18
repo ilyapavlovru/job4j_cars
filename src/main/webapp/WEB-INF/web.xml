@@ -19,6 +19,10 @@
     <servlet-class>ru.job4j.cars.servlet.AdvServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>AllAdvServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.servlet.AllAdvServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>CarBrandServlet</servlet-name>
     <servlet-class>ru.job4j.cars.servlet.CarBrandServlet</servlet-class>
   </servlet>
@@ -51,6 +55,10 @@
   <servlet-mapping>
     <servlet-name>AdvServlet</servlet-name>
     <url-pattern>/adv.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AllAdvServlet</servlet-name>
+    <url-pattern>/alladv.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>DownloadServlet</servlet-name>
