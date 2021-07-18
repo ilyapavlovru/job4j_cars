@@ -47,15 +47,29 @@
     String id = request.getParameter("id");
     Adv adv = new Adv(0, "");
     int carBrandId = 0;
+    int carBodyTypeId = 0;
+    String carDescription = "";
     if (id != null) {
         adv = AdRepository.instOf().findAdvById(Integer.parseInt(id));
         carBrandId = adv.getCarBrand().getId();
+        carBodyTypeId = adv.getCarBodyType().getId();
+        carDescription = adv.getDescription();
     }
 %>
 
 
 <script>
+
     $(document).ready(function () {
+
+        loadCarBrandsFromDB();
+        loadCarBodyTypesFromDB();
+
+        $('#descriptionTextArea').val('<%=carDescription%>');
+
+    });
+
+    function loadCarBrandsFromDB() {
         const el = document.getElementById('carBrandSelector');
         let curCarBrandId = <%=carBrandId%>;
         $.ajax({
@@ -71,7 +85,25 @@
         }).fail(function (err) {
             alert(err);
         });
-    });
+    }
+
+    function loadCarBodyTypesFromDB() {
+        const el = document.getElementById('carBodyTypeSelector');
+        let curCarBodyTypeId = <%=carBodyTypeId%>;
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/cars/carbodytypes',
+            dataType: 'json'
+        }).done(function (response) {
+            response.forEach(function (arrayItem) {
+                el.append(new Option(arrayItem.name, arrayItem.id));
+                console.log(arrayItem.id + " " + arrayItem.name);
+            });
+            el.value = curCarBodyTypeId;
+        }).fail(function (err) {
+            alert(err);
+        });
+    }
 
 </script>
 
@@ -106,15 +138,12 @@
                         <label for="carBodyTypeSelector">Тип кузова:</label>
                         <select class="form-control" id="carBodyTypeSelector" name = "carBodyTypeId">
                             <option value="0">Выберите тип кузова автомобиля</option>
-                            <option value="Седан">Седан</option>
-                            <option value="Хэтчбэк">Хэтчбэк</option>
-                            <option value="Универсал">Универсал</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Цена:</label>
-                        <input type="text" class="form-control" id="price" name="price">
+                        <input type="text" class="form-control" id="price" name="price" value="<%=adv.getPrice()%>">
                     </div>
 
                     <div class="form-group">

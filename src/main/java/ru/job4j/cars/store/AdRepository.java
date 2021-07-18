@@ -7,10 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-import ru.job4j.cars.model.Adv;
-import ru.job4j.cars.model.CarBrand;
-import ru.job4j.cars.model.Role;
-import ru.job4j.cars.model.User;
+import ru.job4j.cars.model.*;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -107,6 +104,14 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public Collection<CarBodyType> findAllCarBodyTypes() {
+        return tx(
+                session -> session.createQuery(
+                        "from ru.job4j.cars.model.CarBodyType").list()
+        );
+    }
+
+    @Override
     public User findUserByEmail(String email) {
         return tx(
                 session -> {
@@ -152,6 +157,13 @@ public class AdRepository implements Store, AutoCloseable {
     public CarBrand findCarBrandById(Integer carBrandId) {
         return tx(
                 session -> session.get(CarBrand.class, carBrandId)
+        );
+    }
+
+    @Override
+    public CarBodyType findCarBodyTypeById(Integer carBodyTypeId) {
+        return tx(
+                session -> session.get(CarBodyType.class, carBodyTypeId)
         );
     }
 

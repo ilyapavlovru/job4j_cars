@@ -1,9 +1,6 @@
 package ru.job4j.cars.store;
 
-import ru.job4j.cars.model.Adv;
-import ru.job4j.cars.model.CarBrand;
-import ru.job4j.cars.model.Role;
-import ru.job4j.cars.model.User;
+import ru.job4j.cars.model.*;
 
 import java.util.Collection;
 
@@ -17,15 +14,18 @@ public interface Store {
 
     Collection<CarBrand> findAllCarBrands();
 
-//    Collection<Category> findAllCategories();
-    User findUserByEmail(String email);
+    Collection<CarBodyType> findAllCarBodyTypes();
 
+    User findUserByEmail(String email);
     User addUser(User user);
+
     Role findRoleByName(String name);
 
     Role addRole(Role role);
 
     CarBrand findCarBrandById(Integer carBrandId);
+
+    CarBodyType findCarBodyTypeById(Integer carBodyTypeId);
 
     Adv saveAdv(Adv adv);
 

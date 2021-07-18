@@ -2,6 +2,7 @@ package ru.job4j.cars.servlet;
 
 import org.apache.log4j.Logger;
 import ru.job4j.cars.model.Adv;
+import ru.job4j.cars.model.CarBodyType;
 import ru.job4j.cars.model.CarBrand;
 import ru.job4j.cars.store.AdRepository;
 
@@ -41,29 +42,31 @@ public class AdvServlet extends HttpServlet {
             CarBrand carBrand = AdRepository.instOf().findCarBrandById(
                     Integer.valueOf(req.getParameter("carBrandId")));
 
+            CarBodyType carBodyType = AdRepository.instOf().findCarBodyTypeById(
+                    Integer.valueOf(req.getParameter("carBodyTypeId")));
+
             if (id == 0) {
 
                 AdRepository.instOf().saveAdv(
                         new Adv(
+                                id,
                                 req.getParameter("name"),
                                 req.getParameter("description"),
                                 "new",
                                 carBrand,
-                                req.getParameter("carBodyTypeId"),
+                                carBodyType,
                                 Integer.parseInt(req.getParameter("price"))
                         )
                 );
             } else {
-                AdRepository.instOf().updateAdv(
-                        new Adv(
-                                req.getParameter("name"),
-                                req.getParameter("description"),
-                                req.getParameter("status"),
-                                carBrand,
-                                req.getParameter("carBodyTypeId"),
-                                Integer.parseInt(req.getParameter("price"))
-                        )
-                );
+                Adv adv = AdRepository.instOf().findAdvById(id);
+                adv.setName(req.getParameter("name"));
+                adv.setDescription(req.getParameter("description"));
+                adv.setStatus(req.getParameter("advStatusSelectorId"));
+                adv.setCarBrand(carBrand);
+                adv.setCarBodyType(carBodyType);
+                adv.setPrice(Integer.parseInt(req.getParameter("price")));
+                AdRepository.instOf().updateAdv(adv);
             }
         }
         resp.sendRedirect(req.getContextPath() + "/adv.do");

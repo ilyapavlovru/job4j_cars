@@ -14,8 +14,16 @@ create table adv
 create table car_brand
 (
     id   serial primary key,
-    name varchar(255)
+    name varchar(255) not null
 );
+create unique index car_brand_name_uindex on car_brand (name);
+
+create table car_body_type
+(
+    id   serial primary key,
+    name varchar(255) not null
+);
+create unique index car_body_type_uindex on car_body_type (name);
 
 create table j_role
 (

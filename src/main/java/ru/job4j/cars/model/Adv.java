@@ -24,7 +24,9 @@ public class Adv {
     @JoinColumn(name = "car_brand_id")
     private CarBrand carBrand;
 
-    private String carBodyType;
+    @ManyToOne
+    @JoinColumn(name = "car_body_type_id")
+    private CarBodyType carBodyType;
 
     private int price;
 
@@ -46,8 +48,9 @@ public class Adv {
         return adv;
     }
 
-    public Adv(String name, String description, String status,
-               CarBrand carBrand, String carBodyType, int price) {
+    public Adv(int id, String name, String description, String status,
+               CarBrand carBrand, CarBodyType carBodyType, int price) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.created = new Date(System.currentTimeMillis());
@@ -101,11 +104,11 @@ public class Adv {
         this.carBrand = carBrand;
     }
 
-    public String getCarBodyType() {
+    public CarBodyType getCarBodyType() {
         return carBodyType;
     }
 
-    public void setCarBodyType(String carBodyType) {
+    public void setCarBodyType(CarBodyType carBodyType) {
         this.carBodyType = carBodyType;
     }
 

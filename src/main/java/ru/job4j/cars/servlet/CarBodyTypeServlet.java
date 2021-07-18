@@ -1,6 +1,7 @@
 package ru.job4j.cars.servlet;
 
 import com.google.gson.Gson;
+import ru.job4j.cars.model.CarBodyType;
 import ru.job4j.cars.model.CarBrand;
 import ru.job4j.cars.store.AdRepository;
 
@@ -11,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
-public class CarBrandServlet extends HttpServlet {
+public class CarBodyTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Collection<CarBrand> carBrands = AdRepository.instOf().findAllCarBrands();
-        String json = new Gson().toJson(carBrands);
+        Collection<CarBodyType> carBodyTypes = AdRepository.instOf().findAllCarBodyTypes();
+        String json = new Gson().toJson(carBodyTypes);
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json");
         resp.getWriter().write(json);

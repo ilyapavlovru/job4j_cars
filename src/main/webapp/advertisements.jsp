@@ -56,6 +56,7 @@
                     <th scope="col">Марка</th>
                     <th scope="col">Тип кузова</th>
                     <th scope="col">Цена</th>
+                    <th scope="col">Статус</th>
                 </tr>
                 </thead>
                 <tbody id="allCarsTable">
@@ -68,7 +69,7 @@
                     <td>
                         <form action='<c:url value="/photoUpload"/>' method="get">
                             <input type="hidden" name="action" value="add"/>
-                            <input type="hidden" name="id" value="${adv.id}"/>
+                            <input type="hidden" name="id" value="<c:out value="${adv.id}"/>"/>
                             <input type="submit" value="Добавить"/>
                         </form>
                     </td>
@@ -85,10 +86,13 @@
                         <c:out value="${adv.carBrand.name}"/>
                     </td>
                     <td>
-                        <c:out value="${adv.carBodyType}"/>
+                        <c:out value="${adv.carBodyType.name}"/>
                     </td>
                     <td>
                         <c:out value="${adv.price}"/>
+                    </td>
+                    <td>
+                        <c:out value="${adv.status}"/>
                     </td>
                 </tr>
                 </c:forEach>
