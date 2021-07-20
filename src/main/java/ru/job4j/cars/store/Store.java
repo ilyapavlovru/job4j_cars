@@ -19,6 +19,8 @@ public interface Store {
 
     User findUserByEmail(String email);
 
+    User findUserByPhone(String phone);
+
     User addUser(User user);
 
     Role findRoleByName(String name);

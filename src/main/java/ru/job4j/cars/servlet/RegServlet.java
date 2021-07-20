@@ -19,24 +19,33 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String phone = req.getParameter("phone");
         Store store = AdRepository.instOf();
-        User existingUser = store.findUserByEmail(email);
-        if (existingUser == null) {
+        User existingByEmailUser = store.findUserByEmail(email);
+        User existingByPhoneUser = store.findUserByPhone(phone);
+        if (existingByEmailUser == null && existingByPhoneUser == null) {
             req.setCharacterEncoding("UTF-8");
             Role role = store.findRoleByName("ADMIN");
             if (role == null) {
                 role = store.addRole(Role.of("ADMIN"));
             }
-            store.addUser(User.of(name, email, password, role));
+            store.addUser(User.of(name, email, password, phone, role));
             HttpSession sc = req.getSession();
             User sessionUser = new User(name, email);
             sc.setAttribute("user", sessionUser);
-            resp.sendRedirect(req.getContextPath());
-        } else {
+            resp.sendRedirect(req.getContextPath() + "/adv.do");
+        } else if (existingByEmailUser != null) {
             resp.setContentType("text/html;charset=UTF-8");
             PrintWriter out = resp.getWriter();
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Пользователь с таким email уже существует');");
+            out.println("location='reg.jsp';");
+            out.println("</script>");
+        } else {
+            resp.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('Пользователь с таким телефоном уже существует');");
             out.println("location='reg.jsp';");
             out.println("</script>");
         }

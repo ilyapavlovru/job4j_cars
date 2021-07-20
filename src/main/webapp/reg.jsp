@@ -23,7 +23,6 @@
 
 <script>
     function validate() {
-
         const name = $('#name').val();
         if (name === "") {
             alert("Укажите ваше имя");
@@ -37,6 +36,11 @@
         const pass = $('#pass').val();
         if (pass === "") {
             alert("Укажите ваш пароль");
+            return false;
+        }
+        const phone = $('#phone').val();
+        if (phone === "") {
+            alert("Укажите ваш телефон");
             return false;
         }
     }
@@ -62,6 +66,10 @@
                     <div class="form-group">
                         <label>Пароль</label>
                         <input type="text" class="form-control" id="pass" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="text" class="form-control" id="phone" name="phone">
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Зарегистрироваться</button>
                 </form>

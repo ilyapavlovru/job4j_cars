@@ -146,6 +146,17 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public User findUserByPhone(String phone) {
+        return tx(
+                session -> {
+                    Query query = session.createQuery("from ru.job4j.cars.model.User where phone = :phone");
+                    query.setParameter("phone", phone);
+                    return (User) query.uniqueResult();
+                }
+        );
+    }
+
+    @Override
     public User addUser(User user) {
         return tx(
                 session -> {

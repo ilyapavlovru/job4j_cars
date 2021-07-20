@@ -56,11 +56,13 @@
     int carBrandId = 0;
     int carBodyTypeId = 0;
     String carDescription = "";
+    String advStatus = "";
     if (id != null) {
         adv = AdRepository.instOf().findAdvById(Integer.parseInt(id));
         carBrandId = adv.getCarBrand().getId();
         carBodyTypeId = adv.getCarBodyType().getId();
         carDescription = adv.getDescription();
+        advStatus = adv.getStatus();
     }
 %>
 
@@ -73,6 +75,7 @@
         loadCarBodyTypesFromDB();
 
         $('#descriptionTextArea').val('<%=carDescription%>');
+        $('#advStatusSelector').val('<%=advStatus%>');
 
     });
 
@@ -159,14 +162,12 @@
                     </div>
 
                     <div class="form-group">
-                        <% if (id != null) { %>
                         <label for="advStatusSelector">Статус объявления:</label>
                         <select class="form-control" id="advStatusSelector" name = "advStatusSelectorId">
-                            <option value="0">Выберите статус объявления</option>
+                            <option selected value="">Выберите статус объявления</option>
                             <option value="Продается">Продается</option>
                             <option value="Продано">Продано</option>
                         </select>
-                        <% } %>
                     </div>
 
                     <input type="hidden" name="action" value="update"/>

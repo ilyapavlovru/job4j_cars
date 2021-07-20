@@ -30,11 +30,12 @@ public class User {
         this.email = email;
     }
 
-    public static User of(String name, String email, String password, Role role) {
+    public static User of(String name, String email, String password, String phone, Role role) {
         User user = new User();
         user.name = name;
         user.email = email;
         user.password = password;
+        user.phone = phone;
         user.role = role;
         return user;
     }
