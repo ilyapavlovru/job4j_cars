@@ -37,64 +37,57 @@ public class AdvServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         req.setCharacterEncoding("UTF-8");
+        Store store = AdRepository.instOf();
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String description = req.getParameter("description");
+        String status = req.getParameter("advStatusSelectorId");
+        int price = Integer.parseInt(req.getParameter("price"));
+        CarBrand carBrand = store.findCarBrandById(
+                Integer.valueOf(req.getParameter("carBrandId")));
+        CarBodyType carBodyType = store.findCarBodyTypeById(
+                Integer.valueOf(req.getParameter("carBodyTypeId")));
+        HttpSession session = req.getSession();
+        User sessionUser = (User) session.getAttribute("user");
+        User user = store.findUserByEmail(sessionUser.getEmail());
 
-        if ("delete".equals(req.getParameter("action"))) {
-
-        } else if ("update".equals(req.getParameter("action"))) {
-
-            Store store = AdRepository.instOf();
-
-            int id = Integer.parseInt(req.getParameter("id"));
-
-            CarBrand carBrand = store.findCarBrandById(
-                    Integer.valueOf(req.getParameter("carBrandId")));
-
-            CarBodyType carBodyType = store.findCarBodyTypeById(
-                    Integer.valueOf(req.getParameter("carBodyTypeId")));
-
-            HttpSession session = req.getSession();
-            User sessionUser = (User) session.getAttribute("user");
-            User user = store.findUserByEmail(sessionUser.getEmail());
-
-            if (id == 0) {
-
-                File file = new File("c:\\car-images\\no-image.png");
-                byte[] bFile = new byte[(int) file.length()];
-                try {
-                    FileInputStream fileInputStream = new FileInputStream(file);
-                    fileInputStream.read(bFile);
-                    fileInputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                AdRepository.instOf().saveAdv(
-                        new Adv(
-                                id,
-                                req.getParameter("name"),
-                                req.getParameter("description"),
-                                "Продается",
-                                bFile,
-                                carBrand,
-                                carBodyType,
-                                user,
-                                Integer.parseInt(req.getParameter("price"))
-                        )
-                );
-            } else {
-                Adv adv = AdRepository.instOf().findAdvById(id);
-                adv.setName(req.getParameter("name"));
-                adv.setDescription(req.getParameter("description"));
-                adv.setStatus(req.getParameter("advStatusSelectorId"));
-                adv.setCarBrand(carBrand);
-                adv.setCarBodyType(carBodyType);
-                adv.setUser(user);
-                adv.setPrice(Integer.parseInt(req.getParameter("price")));
-                AdRepository.instOf().updateAdv(adv);
+        if (id == 0) {
+            File file = new File("c:\\car-images\\no-image.png");
+            byte[] bFile = new byte[(int) file.length()];
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                fileInputStream.read(bFile);
+                fileInputStream.close();
+            } catch (Exception e) {
+                logger.warn("Read default ad image error", e);
             }
+
+            store.saveAdv(
+                    new Adv(
+                            id,
+                            name,
+                            description,
+                            "Продается",
+                            bFile,
+                            carBrand,
+                            carBodyType,
+                            user,
+                            price
+                    )
+            );
+        } else {
+            Adv adv = store.findAdvById(id);
+            adv.setName(name);
+            adv.setDescription(description);
+            adv.setStatus(status);
+            adv.setCarBrand(carBrand);
+            adv.setCarBodyType(carBodyType);
+            adv.setUser(user);
+            adv.setPrice(price);
+            store.updateAdv(adv);
         }
+
         resp.sendRedirect(req.getContextPath() + "/adv.do");
     }
 }

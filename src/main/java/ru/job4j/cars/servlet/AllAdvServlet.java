@@ -1,6 +1,5 @@
 package ru.job4j.cars.servlet;
 
-import org.apache.log4j.Logger;
 import ru.job4j.cars.model.User;
 import ru.job4j.cars.store.AdRepository;
 import ru.job4j.cars.store.Store;
@@ -15,8 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class AllAdvServlet extends HttpServlet {
-
-    private final Logger logger = Logger.getLogger(AllAdvServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

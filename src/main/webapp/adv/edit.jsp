@@ -68,13 +68,10 @@
 <script>
 
     $(document).ready(function () {
-
         loadCarBrandsFromDB();
         loadCarBodyTypesFromDB();
-
         $('#descriptionTextArea').val('<%=carDescription%>');
         $('#advStatusSelector').val('<%=advStatus%>');
-
     });
 
     function loadCarBrandsFromDB() {

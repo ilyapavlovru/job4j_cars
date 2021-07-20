@@ -44,6 +44,26 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public Adv saveAdv(Adv adv) {
+        return tx(
+                session -> {
+                    session.save(adv);
+                    return adv;
+                }
+        );
+    }
+
+    @Override
+    public Adv updateAdv(Adv adv) {
+        return tx(
+                session -> {
+                    session.update(adv);
+                    return adv;
+                }
+        );
+    }
+
+    @Override
     public Collection<Adv> findAllAds() {
         return tx(
                 session -> session.createQuery(
@@ -135,6 +155,20 @@ public class AdRepository implements Store, AutoCloseable {
     }
 
     @Override
+    public CarBrand findCarBrandById(Integer carBrandId) {
+        return tx(
+                session -> session.get(CarBrand.class, carBrandId)
+        );
+    }
+
+    @Override
+    public CarBodyType findCarBodyTypeById(Integer carBodyTypeId) {
+        return tx(
+                session -> session.get(CarBodyType.class, carBodyTypeId)
+        );
+    }
+
+    @Override
     public User findUserByEmail(String email) {
         return tx(
                 session -> {
@@ -183,40 +217,6 @@ public class AdRepository implements Store, AutoCloseable {
                 session -> {
                     session.save(role);
                     return role;
-                }
-        );
-    }
-
-    @Override
-    public CarBrand findCarBrandById(Integer carBrandId) {
-        return tx(
-                session -> session.get(CarBrand.class, carBrandId)
-        );
-    }
-
-    @Override
-    public CarBodyType findCarBodyTypeById(Integer carBodyTypeId) {
-        return tx(
-                session -> session.get(CarBodyType.class, carBodyTypeId)
-        );
-    }
-
-    @Override
-    public Adv saveAdv(Adv adv) {
-        return tx(
-                session -> {
-                    session.save(adv);
-                    return adv;
-                }
-        );
-    }
-
-    @Override
-    public Adv updateAdv(Adv adv) {
-        return tx(
-                session -> {
-                    session.update(adv);
-                    return adv;
                 }
         );
     }

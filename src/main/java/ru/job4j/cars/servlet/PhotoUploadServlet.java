@@ -62,7 +62,7 @@ public class PhotoUploadServlet extends HttpServlet {
                         fileInputStream.read(bFile);
                         fileInputStream.close();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.warn("Read ad image error", e);
                     }
 
                     Adv adv = AdRepository.instOf().findAdvById(id);
