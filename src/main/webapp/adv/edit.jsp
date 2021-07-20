@@ -1,4 +1,3 @@
-<%@ page import="ru.job4j.cars.model.User" %>
 <%@ page import="ru.job4j.cars.model.Adv" %>
 <%@ page import="ru.job4j.cars.store.AdRepository" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -66,7 +65,6 @@
     }
 %>
 
-
 <script>
 
     $(document).ready(function () {
@@ -113,6 +111,50 @@
         }).fail(function (err) {
             alert(err);
         });
+    }
+
+    function validate() {
+
+        const name = $('#name').val();
+        if (name === "") {
+            alert("Укажите заголовок объявления");
+            return false;
+        }
+
+        const carBrandSelectorId = $('#carBrandSelector').val();
+        if (carBrandSelectorId === "0") {
+            alert("Укажите марку автомобиля");
+            return false;
+        }
+
+        const carBodyTypeSelectorId = $('#carBodyTypeSelector').val();
+        if (carBodyTypeSelectorId === "0") {
+            alert("Укажите тип кузова автомобиля");
+            return false;
+        }
+
+        const price = $('#price').val();
+        if (!isNormalInteger(price)) {
+            alert("Укажите корректную цену");
+            return false;
+        }
+
+        const descriptionTextArea = $('#descriptionTextArea').val();
+        if (descriptionTextArea === "") {
+            alert("Добавьте описание объявления");
+            return false;
+        }
+
+        const advStatusSelector = $('#advStatusSelector').val();
+        if (advStatusSelector === "") {
+            alert("Укажите статус объявления");
+            return false;
+        }
+    }
+
+    function isNormalInteger(str) {
+        var n = Math.floor(Number(str));
+        return n !== Infinity && String(n) === str && n >= 0;
     }
 
 </script>
