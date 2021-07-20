@@ -200,6 +200,7 @@
                         <textarea class="form-control" id="descriptionTextArea" name = "description" rows="3"></textarea>
                     </div>
 
+                    <% if (id != null) { %>
                     <div class="form-group">
                         <label for="advStatusSelector">Статус объявления:</label>
                         <select class="form-control" id="advStatusSelector" name = "advStatusSelectorId">
@@ -208,6 +209,7 @@
                             <option value="Продано">Продано</option>
                         </select>
                     </div>
+                    <% } %>
 
                     <input type="hidden" name="action" value="update"/>
                     <button type="submit" value="UPDATE" class="btn btn-primary" onclick="return validate()">Сохранить</button>
