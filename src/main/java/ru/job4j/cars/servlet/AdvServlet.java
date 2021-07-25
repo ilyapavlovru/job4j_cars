@@ -1,5 +1,7 @@
 package ru.job4j.cars.servlet;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
 import ru.job4j.cars.model.Adv;
 import ru.job4j.cars.model.CarBodyType;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 public class AdvServlet extends HttpServlet {
 
     private final Logger logger = Logger.getLogger(AdvServlet.class);
+
+    private static final String PROPERTIES_FILENAME = "application.properties";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,7 +57,15 @@ public class AdvServlet extends HttpServlet {
         User user = store.findUserByEmail(sessionUser.getEmail());
 
         if (id == 0) {
-            File file = new File("c:\\car-images\\no-image.png");
+            PropertiesConfiguration config = new PropertiesConfiguration();
+            File file = new File("");
+            try {
+                config.load(PROPERTIES_FILENAME);
+                file = new File((String) config.getProperty("default-image-file"));
+            } catch (ConfigurationException e) {
+                logger.warn("Read application.properties error", e);
+            }
+
             byte[] bFile = new byte[(int) file.length()];
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
